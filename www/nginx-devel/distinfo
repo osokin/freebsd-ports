@@ -1,7 +1,9 @@
-TIMESTAMP = 1655944106
+TIMESTAMP = 1655991425
 SHA256 (nginx-1.23.0.tar.gz) = 820acaa35b9272be9e9e72f6defa4a5f2921824709f8aa4772c78ab31ed94cd1
 SIZE (nginx-1.23.0.tar.gz) = 1102940
 SHA256 (ngx_http_redis-0.3.9.tar.gz) = 21f87540f0a44b23ffa5df16fb3d788bc90803b255ef14f9c26e3847a6f26f46
 SIZE (ngx_http_redis-0.3.9.tar.gz) = 13051
+SHA256 (msva-nginx_ajp_module-fcbb2cc_GH0.tar.gz) = 522e94c59f5783f281d868ede2adf325bf2f8ffb9e62cf8451d4b9ac0516916c
+SIZE (msva-nginx_ajp_module-fcbb2cc_GH0.tar.gz) = 110807
 SHA256 (nginx-njs-0.7.5_GH0.tar.gz) = 75eb6581cc50383115fc836158fc69b3fc5b79d51aa9038b6095da7679b72842
 SIZE (nginx-njs-0.7.5_GH0.tar.gz) = 592998

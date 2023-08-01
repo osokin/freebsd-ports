@@ -1,8 +1,11 @@
 PORTNAME=	unit
 PORTVERSION=	${UNIT_VERSION}
-PORTREVISION=	1
+PORTREVISION=	2
 CATEGORIES=	www
 MASTER_SITES?=	https://unit.nginx.org/download/
+
+PATCH_SITES=	https://github.com/nginx/unit/commit/
+PATCHFILES=	f3b5a7d88ab42866fa805b00ee9364ace86f677d.patch:-p1
 
 MAINTAINER=	osa@FreeBSD.org
 COMMENT?=	Dynamic web application server

@@ -1,5 +1,5 @@
 PORTNAME=	plux
-PORTVERSION=	1.3.2
+PORTVERSION=	1.4.0
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}stevedore>=3.4:devel/py-stevedore@${PY_FLAVOR}
 
-USES=		python:3.7+
+USES=		python
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes

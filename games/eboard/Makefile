@@ -11,7 +11,7 @@ DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	rhurlin@FreeBSD.org
-COMMENT=	GTK+ chess board interface (mainly for FICS and chessd)
+COMMENT=	GTK chess board interface (mainly for FICS and chessd)
 WWW=		https://www.bergo.eng.br/eboard/
 
 LICENSE=	GPLv2
@@ -21,6 +21,9 @@ LIB_DEPENDS=	libfontconfig.so:x11-fonts/fontconfig \
 		libpng.so:graphics/png
 
 USES=		compiler:c++11-lang gnome gstreamer perl5 pkgconfig shebangfix tar:bzip2
+# eboard 1.1.13 is not compatible with C++17, which is the default since
+# clang 16. This means ports depending on it also need to use at most C++14.
+USE_CXXSTD=	c++11
 USE_GITHUB=	yes
 GH_ACCOUNT=	fbergo
 USE_GNOME=	cairo gdkpixbuf2 gtk20

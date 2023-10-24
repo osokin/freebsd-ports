@@ -1,5 +1,5 @@
-TIMESTAMP = 1685412511
-SHA256 (wazuh-4.4.3/wazuh-kibana-app-4.4.3-2.7.0.tar.gz) = d4e28bd89c9f728819884ef80a3c6ba00e5febb9adf139ecbc8ec86b5b033295
-SIZE (wazuh-4.4.3/wazuh-kibana-app-4.4.3-2.7.0.tar.gz) = 37111865
-SHA256 (wazuh-4.4.3/opensearch_dashboards.yml) = 88affe6dab2e1299b6f8b5264e6dd9ea1aa42885f3aefb8822fe559f2b6bb5d5
-SIZE (wazuh-4.4.3/opensearch_dashboards.yml) = 806
+TIMESTAMP = 1698096131
+SHA256 (wazuh-4.5.4/wazuh-dashboard-plugins-4.5.4-2.10.0.tar.gz) = 8e2d0b957d4aa9cebfe95c3f34d93ce3295679ac658aadc4d39b97846670ceed
+SIZE (wazuh-4.5.4/wazuh-dashboard-plugins-4.5.4-2.10.0.tar.gz) = 36139813
+SHA256 (wazuh-4.5.4/opensearch_dashboards.yml) = 88affe6dab2e1299b6f8b5264e6dd9ea1aa42885f3aefb8822fe559f2b6bb5d5
+SIZE (wazuh-4.5.4/opensearch_dashboards.yml) = 806

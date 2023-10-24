@@ -1,10 +1,9 @@
 PORTNAME=	ipinfo
 DISTVERSIONPREFIX=	ipinfo-
-DISTVERSION=	2.10.1
-PORTREVISION=	5
+DISTVERSION=	3.1.2
 CATEGORIES=	net
 
-MAINTAINER=	0xdutra@gmail.com
+MAINTAINER=	nulldutra@proton.me
 COMMENT=	Official Command Line Interface for the IPinfo API
 WWW=		https://github.com/ipinfo/cli
 
@@ -15,7 +14,7 @@ USES=	go:modules
 
 USE_GITHUB=	yes
 GH_PROJECT=	cli
-GH_TUPLE=	golang:sys:v0.5.0:golang_sys \
+GH_TUPLE=	golang:sys:v0.13.0:golang_sys
 
 GO_TARGET=	./ipinfo
 

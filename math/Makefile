@@ -24,7 +24,6 @@
     SUBDIR += R-cran-Matching
     SUBDIR += R-cran-MatrixModels
     SUBDIR += R-cran-NMF
-    SUBDIR += R-cran-RHmm
     SUBDIR += R-cran-RSvgDevice
     SUBDIR += R-cran-RcppArmadillo
     SUBDIR += R-cran-RcppEigen
@@ -104,6 +103,7 @@
     SUBDIR += R-cran-mitools
     SUBDIR += R-cran-moments
     SUBDIR += R-cran-mvtnorm
+    SUBDIR += R-cran-ncdf4
     SUBDIR += R-cran-nloptr
     SUBDIR += R-cran-nnls
     SUBDIR += R-cran-nortest
@@ -224,6 +224,7 @@
     SUBDIR += chryzodus
     SUBDIR += chuffed
     SUBDIR += cimod
+    SUBDIR += clad
     SUBDIR += clasp
     SUBDIR += clblas
     SUBDIR += clblast
@@ -273,7 +274,6 @@
     SUBDIR += dihydrogen
     SUBDIR += dionysus
     SUBDIR += disco
-    SUBDIR += djbfft
     SUBDIR += drgeo
     SUBDIR += dsdp
     SUBDIR += dune-alugrid
@@ -394,6 +394,7 @@
     SUBDIR += hs-syfco
     SUBDIR += hsl
     SUBDIR += hydrogen
+    SUBDIR += hyperdeal
     SUBDIR += ideep
     SUBDIR += ignition-math
     SUBDIR += igraph
@@ -411,6 +412,7 @@
     SUBDIR += jtransforms
     SUBDIR += jts
     SUBDIR += kahip
+    SUBDIR += kalc
     SUBDIR += kalgebra
     SUBDIR += kalk
     SUBDIR += kalker
@@ -442,6 +444,7 @@
     SUBDIR += libccd
     SUBDIR += libcerf
     SUBDIR += libdivide
+    SUBDIR += libdivsufsort
     SUBDIR += libfixmath
     SUBDIR += libflame
     SUBDIR += libformfactor
@@ -619,6 +622,7 @@
     SUBDIR += octave-forge-pkg-octave-doc
     SUBDIR += octave-forge-plot
     SUBDIR += octave-forge-ponchon-savarit
+    SUBDIR += octave-forge-prompt
     SUBDIR += octave-forge-psychrometrics
     SUBDIR += octave-forge-pythonic
     SUBDIR += octave-forge-quaternion
@@ -659,6 +663,7 @@
     SUBDIR += openfst
     SUBDIR += openlibm
     SUBDIR += openmesh
+    SUBDIR += openscop
     SUBDIR += opensolaris-libm
     SUBDIR += openturns
     SUBDIR += optpp
@@ -833,6 +838,7 @@
     SUBDIR += pear-Math_BigInteger
     SUBDIR += pear-Math_Combinatorics
     SUBDIR += pecl-bitset
+    SUBDIR += perlinnoise
     SUBDIR += permlib
     SUBDIR += petanque
     SUBDIR += petiga
@@ -887,6 +893,8 @@
     SUBDIR += py-arviz
     SUBDIR += py-arybo
     SUBDIR += py-autograd
+    SUBDIR += py-awkward
+    SUBDIR += py-awkward-cpp
     SUBDIR += py-baycomp
     SUBDIR += py-bayesian-optimization
     SUBDIR += py-benford_py
@@ -930,7 +938,6 @@
     SUBDIR += py-fvcore
     SUBDIR += py-gau2grid
     SUBDIR += py-gimmik
-    SUBDIR += py-gmpy
     SUBDIR += py-gmpy2
     SUBDIR += py-grandalf
     SUBDIR += py-graphillion
@@ -938,6 +945,7 @@
     SUBDIR += py-gym-notices
     SUBDIR += py-hdbscan
     SUBDIR += py-hdmedians
+    SUBDIR += py-hepstats
     SUBDIR += py-heyoka
     SUBDIR += py-igraph
     SUBDIR += py-iminuit
@@ -945,6 +953,7 @@
     SUBDIR += py-iohexperimenter
     SUBDIR += py-ipyopt
     SUBDIR += py-isosurfaces
+    SUBDIR += py-jacobi
     SUBDIR += py-jax
     SUBDIR += py-kahip
     SUBDIR += py-keras
@@ -955,6 +964,7 @@
     SUBDIR += py-libpoly
     SUBDIR += py-linearmodels
     SUBDIR += py-lmfit
+    SUBDIR += py-logical-unification
     SUBDIR += py-lrcalc
     SUBDIR += py-luminol
     SUBDIR += py-mapbox-earcut
@@ -963,7 +973,6 @@
     SUBDIR += py-matplotlib
     SUBDIR += py-matplotlib-inline
     SUBDIR += py-matplotlib-scalebar
-    SUBDIR += py-matplotlib2
     SUBDIR += py-minorminer
     SUBDIR += py-mip
     SUBDIR += py-mixsimulator
@@ -977,6 +986,7 @@
     SUBDIR += py-networkx
     SUBDIR += py-nevergrad
     SUBDIR += py-nlopt
+    SUBDIR += py-numba-stats
     SUBDIR += py-numdifftools
     SUBDIR += py-numexpr
     SUBDIR += py-numpoly
@@ -1023,20 +1033,24 @@
     SUBDIR += py-pystan
     SUBDIR += py-pysym
     SUBDIR += py-pytanque
+    SUBDIR += py-pytensor
     SUBDIR += py-python-fcl
     SUBDIR += py-python-louvain
     SUBDIR += py-python-picard
     SUBDIR += py-pytorchvideo
     SUBDIR += py-pyvtk
+    SUBDIR += py-qats
     SUBDIR += py-qdldl
     SUBDIR += py-quadprog
     SUBDIR += py-random2
     SUBDIR += py-reals
     SUBDIR += py-rectangle-packer
+    SUBDIR += py-resample
     SUBDIR += py-roman
     SUBDIR += py-rpy2
     SUBDIR += py-rustworkx
     SUBDIR += py-rvlib
+    SUBDIR += py-scikit-fem
     SUBDIR += py-scikit-umfpack
     SUBDIR += py-scs
     SUBDIR += py-seaborn
@@ -1182,6 +1196,7 @@
     SUBDIR += the-algorithms-c++
     SUBDIR += timbl
     SUBDIR += tiny-bignum-c
+    SUBDIR += tinymt
     SUBDIR += tlapack
     SUBDIR += tmv
     SUBDIR += tomsfastmath

@@ -1,9 +1,9 @@
 PORTNAME=	beancount
-PORTVERSION=	2.3.5
+PORTVERSION=	2.3.6
 CATEGORIES=	finance
 DIST_SUBDIR=	${PORTNAME}
 
-MAINTAINER=	nivit@FreeBSD.org
+MAINTAINER=	delphij@FreeBSD.org
 COMMENT=	Double-Entry Accounting from Text Files
 WWW=		https://github.com/beancount/beancount
 
@@ -27,7 +27,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}beautifulsoup>=0:www/py-beautifulsoup@${PY_F
 		${PYTHON_PKGNAMEPREFIX}python-magic>=0:devel/py-python-magic@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>=0:www/py-requests@${PY_FLAVOR}
 
-USES=		compiler:c11 python:3.5+
+USES=		compiler:c11 python
 USE_GITHUB=	yes
 USE_PYTHON=	autoplist distutils noflavors
 

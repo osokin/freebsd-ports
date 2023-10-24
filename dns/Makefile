@@ -4,7 +4,6 @@
     SUBDIR += adns
     SUBDIR += adsuck
     SUBDIR += amass
-    SUBDIR += ares
     SUBDIR += axfr2acl
     SUBDIR += bind-tools
     SUBDIR += bind9-devel
@@ -21,8 +20,6 @@
     SUBDIR += ddns
     SUBDIR += denominator
     SUBDIR += dhisd
-    SUBDIR += djbdns
-    SUBDIR += djbdns-tools
     SUBDIR += dlint
     SUBDIR += dnrd
     SUBDIR += dns-ui
@@ -79,6 +76,7 @@
     SUBDIR += gdnsd3
     SUBDIR += gen6dns
     SUBDIR += getdns
+    SUBDIR += godns
     SUBDIR += hesiod
     SUBDIR += hetzner_ddns
     SUBDIR += hostdb
@@ -98,7 +96,6 @@
     SUBDIR += libasr
     SUBDIR += libasr-devel
     SUBDIR += libbind
-    SUBDIR += libdjbdns
     SUBDIR += libidn
     SUBDIR += libidn2
     SUBDIR += libmicrodns
@@ -110,8 +107,6 @@
     SUBDIR += mDNSResponder_nss
     SUBDIR += maradns
     SUBDIR += mdnsd
-    SUBDIR += mydns
-    SUBDIR += mydns-ng
     SUBDIR += namesilo_ddns
     SUBDIR += nextdns
     SUBDIR += noip
@@ -232,7 +227,6 @@
     SUBDIR += sheerdns
     SUBDIR += sleuth
     SUBDIR += subfinder
-    SUBDIR += tinystats
     SUBDIR += totd
     SUBDIR += udns
     SUBDIR += unbound

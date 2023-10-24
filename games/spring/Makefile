@@ -10,6 +10,9 @@ LICENSE=	GPLv2+ BSD3CLAUSE BSD2CLAUSE
 LICENSE_COMB=	multi
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
+DEPRECATED=	Fails to build and marked broken for several months
+EXPIRATION_DATE=2023-11-30
+
 LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libIL.so:graphics/devil \
 		libogg.so:audio/libogg \
@@ -21,6 +24,7 @@ LIB_DEPENDS=	libfreetype.so:print/freetype2 \
 		libjsoncpp.so:devel/jsoncpp
 BUILD_DEPENDS=	7zz:archivers/7-zip
 
+BROKEN_FreeBSD_13=	ld: error: undefined symbol: streflop_libm::__inline_isnanf(float)
 BROKEN_FreeBSD_14=	ld: error: undefined symbol: streflop_libm::__inline_isnanf(float)
 ONLY_FOR_ARCHS=		amd64
 ONLY_FOR_ARCHS_REASON=	relies on x86 floating-point math and amd64 atomic ops

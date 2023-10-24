@@ -1,6 +1,5 @@
 PORTNAME=	asterisk
-PORTVERSION=	16.30.0
-PORTREVISION=	1
+PORTVERSION=	16.30.1
 CATEGORIES=	net
 MASTER_SITES=	https://downloads.asterisk.org/pub/telephony/%SUBDIR%/:DEFAULT,g729
 MASTER_SITE_SUBDIR=	asterisk/ \
@@ -190,9 +189,12 @@ PJSIP_VERSION=	2.12.1
 
 .if ${OPSYS} == FreeBSD && ( ${OSVERSION} >= 1400079 || ( ${OSVERSION} >= 1302505 && ${OSVERSION} < 1400000 ))
 USES+=		llvm:max=14
-CPP=            clang-cpp${LLVM_VERSION}
-CC=             clang${LLVM_VERSION}
-CXX=            clang++${LLVM_VERSION}
+.endif
+
+.if ( ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && ${SSL_DEFAULT} == base ) || ${SSL_DEFAULT:Mopenssl3*}
+LIB_DEPENDS+=	libgnutls.so:security/gnutls
+CXXFLAGS+=	-DOPENSSL_API_COMPAT=0x10100000L
+LDFLAGS+=	-lgnutls
 .endif
 
 .include <bsd.port.pre.mk>

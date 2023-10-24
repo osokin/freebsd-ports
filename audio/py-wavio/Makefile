@@ -1,6 +1,5 @@
 PORTNAME=	wavio
-DISTVERSION=	0.0.7
-PORTREVISION=	1
+DISTVERSION=	0.0.8
 CATEGORIES=	audio python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -13,8 +12,9 @@ LICENSE=	BSD2CLAUSE
 
 RUN_DEPENDS=	${PYNUMPY}
 
-USES=		python:3.6+
-USE_PYTHON=	distutils autoplist
+USES=		python
+USE_PYTHON=	distutils autoplist pytest
+
 NO_ARCH=	yes
 
 .include <bsd.port.mk>

@@ -1,5 +1,5 @@
 PORTNAME=	ocrmypdf
-DISTVERSION=	14.2.1
+DISTVERSION=	14.4.0
 CATEGORIES=	textproc python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -11,16 +11,16 @@ WWW=		https://github.com/ocrmypdf/OCRmyPDF
 LICENSE=	MPL20
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}setuptools>=61:devel/py-setuptools@${PY_FLAVOR} \
+BUILD_DEPENDS=	${PY_SETUPTOOLS} \
 		${PYTHON_PKGNAMEPREFIX}setuptools_scm>=0:devel/py-setuptools_scm@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}wheel>=0:devel/py-wheel@${PY_FLAVOR}
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}coloredlogs>=14.0:devel/py-coloredlogs@${PY_FLAVOR} \
-		${PYTHON_PKGNAMEPREFIX}deprecation>=2.1.0:devel/py-deprecation@${PY_FLAVOR} \
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}deprecation>=2.1.0:devel/py-deprecation@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}img2pdf>=0.3.0:graphics/py-img2pdf@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}packaging>=20:devel/py-packaging@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pillow>=8.2.0:graphics/py-pillow@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}tqdm>=4:misc/py-tqdm@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}reportlab>=3.5.66:print/py-reportlab@${PY_FLAVOR} \
+		${PYTHON_PKGNAMEPREFIX}rich>=13:textproc/py-rich@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pdfminer.six>=20201018:textproc/py-pdfminer.six@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pikepdf>=5.0.1:textproc/py-pikepdf@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pluggy>=0.13.0:devel/py-pluggy@${PY_FLAVOR} \
@@ -29,7 +29,7 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}hypothesis>=6.0.0:devel/py-hypothesis@${PY_
 		${PYTHON_PKGNAMEPREFIX}pytest-xdist>=2.2.0:devel/py-pytest-xdist@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}python-xmp-toolkit>=2.0.1:textproc/py-python-xmp-toolkit@${PY_FLAVOR}
 
-USES=		ghostscript:run python:3.8+ shebangfix
+USES=		ghostscript:run python shebangfix
 USE_PYTHON=	autoplist concurrent pep517 pytest
 # Skip some checks as they yield wrong results if run with the root account
 PYTEST_IGNORED_TESTS=	test_chmod \

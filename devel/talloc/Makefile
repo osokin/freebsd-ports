@@ -38,7 +38,7 @@ DEBUG_CFLAGS=			-g -ggdb3 -O0
 DEBUG_CONFIGURE_ON=		--verbose --enable-debug
 DEBUG_MAKE_ARGS=		--verbose
 
-PYTHON_USES=			gettext-runtime python:3.6+
+PYTHON_USES=			gettext-runtime python
 PYTHON_USES_OFF=		python:build,test
 PYTHON_CONFIGURE_OFF=		--disable-python
 
@@ -50,6 +50,10 @@ CFLAGS+=			${CFLAGS_${CHOSEN_COMPILER_TYPE}}
 CFLAGS_clang=			-fno-color-diagnostics
 CONFIGURE_ENV+=			NOCOLOR=yes
 MAKE_ENV+=			NOCOLOR=yes
+# Some symbols in talloc's linker version scripts are not defined, but since the
+# scripts are generated dynamically, suppress errors with lld >= 17 due to these
+# undefined symbols.
+LDFLAGS+=			-Wl,--undefined-version
 
 post-patch:
 				@${REINPLACE_CMD} -e 's|%%PKGCONFIGDIR%%|${PKGCONFIGDIR}|g' \

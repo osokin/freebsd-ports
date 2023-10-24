@@ -1,8 +1,10 @@
 PORTNAME=	declarative
 DISTVERSION=	${QT6_VERSION}
-PORTREVISION=	1
 CATEGORIES=	x11-toolkits
 PKGNAMEPREFIX=	qt6-
+
+PATCH_SITES=	https://github.com/qt/qtdeclarative/commit/
+PATCHFILES=	54059d0dffd1966c8a442b3675eb979c32c16cbe.patch:-p1 # QTBUG-117513
 
 MAINTAINER=	kde@FreeBSD.org
 COMMENT=	Qt declarative framework for dynamic user interfaces
@@ -22,16 +24,21 @@ LIB_DEPENDS=	libdouble-conversion.so:devel/double-conversion \
 		libxkbcommon.so:x11/libxkbcommon \
 		libzstd.so:archivers/zstd
 
-USES=		cmake compiler:c++17-lang gettext-runtime gl gnome pkgconfig python:3.5+ xorg \
+USES=		cmake compiler:c++17-lang gettext-runtime gl gnome pkgconfig python xorg \
 		qt-dist:6
 USE_GL=		opengl
 USE_GNOME=	glib20
-USE_QT=		base shadertools
+USE_QT=		base shadertools languageserver
 USE_XORG=	x11 xau xcb xdmcp
 USE_LDCONFIG=	${PREFIX}/${QT_LIBDIR_REL}
 
-post-patch:
-	${REINPLACE_CMD} -e "s#python3#${PYTHON_CMD}#g" ${WRKSRC}/cmake/QtDeclarativeSetup.cmake
+.include <bsd.port.options.mk>
+
+.if ${ARCH} == aarch64 || ${ARCH} == amd64 || ${ARCH:Marmv?} || ${ARCH} == i386
+PLIST_SUB+=	QML_JIT=""
+.else
+PLIST_SUB+=	QML_JIT="@comment "
+.endif
 
 # TODO: do this cleaner
 post-install:

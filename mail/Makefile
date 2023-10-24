@@ -33,6 +33,7 @@
     SUBDIR += bogofilter-bdb
     SUBDIR += bogofilter-kc
     SUBDIR += bogofilter-sqlite
+    SUBDIR += bsd-vacation
     SUBDIR += bsfilter
     SUBDIR += bsmtp
     SUBDIR += bulk_mailer
@@ -77,8 +78,6 @@
     SUBDIR += couriergraph
     SUBDIR += crm114
     SUBDIR += cvsmail
-    SUBDIR += cyrus-imapd23
-    SUBDIR += cyrus-imapd24
     SUBDIR += cyrus-imapd25
     SUBDIR += cyrus-imapd30
     SUBDIR += cyrus-imapd32
@@ -97,6 +96,7 @@
     SUBDIR += dkfilter
     SUBDIR += dkimproxy
     SUBDIR += dma
+    SUBDIR += dmarcts-report-parser
     SUBDIR += dot-forward
     SUBDIR += dovecot
     SUBDIR += dovecot-coi
@@ -225,6 +225,9 @@
     SUBDIR += metamail
     SUBDIR += mew
     SUBDIR += mew-devel
+    SUBDIR += mfmod_ldap
+    SUBDIR += mfmod_openmetrics
+    SUBDIR += mfmod_pcre
     SUBDIR += milter-bogom
     SUBDIR += milter-callback
     SUBDIR += milter-greylist
@@ -496,9 +499,11 @@
     SUBDIR += py-alot
     SUBDIR += py-authheaders
     SUBDIR += py-authres
+    SUBDIR += py-checkdmarc
     SUBDIR += py-django-mailbox
     SUBDIR += py-django-mailman3
     SUBDIR += py-dkimpy
+    SUBDIR += py-dkimpy-milter
     SUBDIR += py-email-reply-parser
     SUBDIR += py-email-validator
     SUBDIR += py-flanker
@@ -518,6 +523,7 @@
     SUBDIR += py-offlineimap3
     SUBDIR += py-postfix-mta-sts-resolver
     SUBDIR += py-premailer
+    SUBDIR += py-pyisemail
     SUBDIR += py-pymailq
     SUBDIR += py-pysasl
     SUBDIR += py-pyspf
@@ -549,7 +555,6 @@
     SUBDIR += qpopper
     SUBDIR += qsf
     SUBDIR += qsheff
-    SUBDIR += qtools
     SUBDIR += queue-fix
     SUBDIR += queue-repair
     SUBDIR += rainloop
@@ -609,6 +614,8 @@
     SUBDIR += rubygem-premailer-rails-rails52
     SUBDIR += rubygem-premailer-rails-rails60
     SUBDIR += rubygem-premailer-rails-rails61
+    SUBDIR += rubygem-premailer-rails-rails70
+    SUBDIR += rubygem-premailer-rails110-rails70
     SUBDIR += rubygem-rmail
     SUBDIR += rubygem-roadie
     SUBDIR += rubygem-roadie-rails-rails4
@@ -632,7 +639,6 @@
     SUBDIR += sieve-connect
     SUBDIR += sigrot
     SUBDIR += simscan
-    SUBDIR += slapd-cyrus
     SUBDIR += slimta
     SUBDIR += sma
     SUBDIR += smfsav
@@ -718,7 +724,6 @@
     SUBDIR += vacation
     SUBDIR += vbsfilter
     SUBDIR += vexim
-    SUBDIR += vmailmgr
     SUBDIR += vpopmail
     SUBDIR += vqadmin
     SUBDIR += vrfy

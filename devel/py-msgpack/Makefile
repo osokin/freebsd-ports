@@ -1,6 +1,5 @@
 PORTNAME=	msgpack
-PORTVERSION=	1.0.5
-PORTREVISION=	1
+PORTVERSION=	1.0.7
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -17,7 +16,7 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cython>=0.29.30<0.30:lang/cython@${PY_FLAV
 		${PYTHON_PKGNAMEPREFIX}setuptools>=35.0.2:devel/py-setuptools@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}wheel>=0:devel/py-wheel@${PY_FLAVOR}
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	autoplist concurrent cython pep517
 
 post-install:

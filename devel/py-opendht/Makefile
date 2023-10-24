@@ -1,6 +1,6 @@
 PORTNAME=	opendht
 DISTVERSIONPREFIX=	v
-DISTVERSION=	2.4.10
+DISTVERSION=	2.6.0.4
 CATEGORIES=	devel net
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -15,10 +15,11 @@ BUILD_DEPENDS=	${LOCALBASE}/include/boost/predef/other/endian.h:devel/boost-libs
 LIB_DEPENDS=	libopendht.so:devel/opendht \
 		libgnutls.so:security/gnutls
 
-USES=		cmake compiler:c++17-lang localbase python:3.4+
+USES=		cmake compiler:c++17-lang localbase python
+USE_PYTHON=	distutils cython autoplist pytest
+
 USE_GITHUB=	yes
 GH_ACCOUNT=	savoirfairelinux
-USE_PYTHON=	distutils cython autoplist pytest
 
 WRKSRC_SUBDIR=	python
 

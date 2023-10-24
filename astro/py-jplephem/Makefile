@@ -1,6 +1,5 @@
 PORTNAME=	jplephem
-PORTVERSION=	2.18
-PORTREVISION=	1
+PORTVERSION=	2.19
 CATEGORIES=	astro python
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -19,7 +18,7 @@ USE_GITHUB=	yes
 GH_ACCOUNT=	brandon-rhodes
 GH_PROJECT=	python-jplephem
 
-USES=		python:3.7+ shebangfix
+USES=		python shebangfix
 USE_PYTHON=	distutils
 SHEBANG_FILES=	test.sh	bin/doctest.sh bin/parse_zzidmap.sh bin/benchmark.py
 NO_ARCH=	yes

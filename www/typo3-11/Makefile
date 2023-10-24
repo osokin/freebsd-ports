@@ -1,6 +1,5 @@
 PORTNAME=	typo3
 PORTVERSION=	${PORT_V_MAJOR}.${PORT_V_MINOR}.${PORT_V_PATCH}
-PORTREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	https://typo3.azureedge.net/typo3/${PORTVERSION}/
 PKGNAMESUFFIX=	-${PORT_V_MAJOR}${PHP_PKGNAMESUFFIX}
@@ -12,8 +11,6 @@ WWW=		https://typo3.org/
 
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/LICENSE.txt
-
-IGNORE_WITH_MYSQL=	56 101m
 
 USES=		cpe php:web,flavors shebangfix
 USE_PHP=	ctype dom fileinfo filter intl session simplexml \
@@ -31,7 +28,7 @@ SUB_LIST+=	PREFIX=${PREFIX} \
 
 PORT_V_MAJOR=	11
 PORT_V_MINOR=	5
-PORT_V_PATCH=	28
+PORT_V_PATCH=	32
 
 TYPO3WWW=	www
 TYPO3SRC=	${PORTNAME}_src-${PORTVERSION}

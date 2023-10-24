@@ -7,7 +7,8 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Python binding of H3 library
-WWW=		https://github.com/uber/h3-py
+WWW=		https://uber.github.io/h3-py/ \
+		https://github.com/uber/h3-py
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -18,7 +19,7 @@ BUILD_DEPENDS=	cmake:devel/cmake-core \
 LIB_DEPENDS=	libh3.so:graphics/h3
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}numpy>=0,1:math/py-numpy@${PY_FLAVOR}
 
-USES=		localbase:ldflags ninja:build python:3.7+
+USES=		localbase:ldflags ninja:build python
 USE_PYTHON=	autoplist concurrent cython distutils pytest
 
 CFLAGS+=	-I${LOCALBASE}/include/h3

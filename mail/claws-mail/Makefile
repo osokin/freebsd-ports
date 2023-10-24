@@ -1,8 +1,7 @@
 PORTNAME=	claws-mail
-PORTREVISION=	1
 CATEGORIES=	mail news
 
-COMMENT=	Lightweight and featureful GTK+ based e-mail and news client
+COMMENT=	Lightweight and featureful GTK based e-mail and news client
 WWW=		https://www.claws-mail.org/
 
 LICENSE=	GPLv3
@@ -22,7 +21,7 @@ RUN_DEPENDS=	${LOCALBASE}/share/certs/ca-root-nss.crt:security/ca_root_nss \
 		mime-support>0:misc/mime-support
 
 USES=		autoreconf compiler:c++11-lang cpe desktop-file-utils gettext \
-		gettext-tools gnome pathfix pkgconfig python:3.5+ shebangfix \
+		gettext-tools gnome pathfix pkgconfig python shebangfix \
 		ssl xorg
 USE_GNOME=	cairo librsvg2
 USE_XORG=	ice sm

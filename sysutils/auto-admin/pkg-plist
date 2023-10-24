@@ -8,14 +8,18 @@ bin/auto-get-netmask
 bin/auto-get-netmask-bits
 bin/auto-get-network
 bin/auto-hex-to-octet
+bin/auto-image2dev
 bin/auto-insert-line
 bin/auto-localbase
+bin/auto-media-format
 bin/auto-octet-to-hex
 bin/auto-pkg-branch
 bin/auto-pkg-latest
 bin/auto-pkgsrc-branch
+bin/auto-pkgsrc-checkout
 bin/auto-pkgsrc-delete-all
 bin/auto-pkgsrc-dir
+bin/auto-pkgsrc-non-removable
 bin/auto-pkgsrc-prefix
 bin/auto-pkgsrc-remote-x11
 bin/auto-pkgsrc-setup
@@ -27,9 +31,11 @@ bin/auto-ssh-reverse-authorize
 bin/auto-update-pkgsrc
 bin/auto-using-pkgsrc
 bin/auto-wacom-map-display
-man/man1/auto-add-swap.1.gz
-man/man1/auto-admin.1.gz
-man/man1/auto-update-system.1.gz
+man/man8/auto-add-swap.8.gz
+man/man8/auto-admin.8.gz
+man/man8/auto-image2dev.8.gz
+man/man8/auto-pkgsrc-non-removable.8.gz
+man/man8/auto-update-system.8.gz
 sbin/auto-add-fdesc-mount
 sbin/auto-add-group
 sbin/auto-add-hosts-entry
@@ -101,7 +107,6 @@ sbin/auto-lock-local-pw
 sbin/auto-lock-user
 sbin/auto-mark-install-from-source
 sbin/auto-mark-package-critical
-sbin/auto-media-format
 sbin/auto-mount-any
 sbin/auto-mount-noautos
 sbin/auto-network-config
@@ -112,6 +117,7 @@ sbin/auto-nfs-client-setup
 sbin/auto-nfs-restart
 sbin/auto-nfs-server-setup
 sbin/auto-os-release
+sbin/auto-os-variant
 sbin/auto-ostype
 sbin/auto-package-installed
 sbin/auto-passwd-user-expiration
@@ -119,6 +125,7 @@ sbin/auto-password-status
 sbin/auto-ports-branch
 sbin/auto-ports-checkout
 sbin/auto-ports-setup
+sbin/auto-ports-wip-checkout
 sbin/auto-power-manager
 sbin/auto-print-make-variable
 sbin/auto-print-timezone
@@ -165,3 +172,5 @@ sbin/auto-wifi-failover
 sbin/auto-write-cache-toggle
 sbin/auto-xdm-toggle
 %%DATADIR%%/ipfw-rules.sh
+%%DATADIR%%/local_early
+%%DATADIR%%/rc.local_early

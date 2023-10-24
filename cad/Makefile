@@ -38,6 +38,7 @@
     SUBDIR += gds3d
     SUBDIR += gdscpp
     SUBDIR += gdsreader
+    SUBDIR += gdstk
     SUBDIR += gdt
     SUBDIR += geda
     SUBDIR += gerbv
@@ -103,19 +104,19 @@
     SUBDIR += pcb
     SUBDIR += pcb-rnd
     SUBDIR += pdnmesh
-    SUBDIR += py-cadquery
+    SUBDIR += py-amaranth
     SUBDIR += py-cocotb
-    SUBDIR += py-cq-editor
     SUBDIR += py-edalize
     SUBDIR += py-ezdxf
     SUBDIR += py-gdspy
+    SUBDIR += py-gdstk
     SUBDIR += py-gmsh
     SUBDIR += py-lcapy
-    SUBDIR += py-ocp
     SUBDIR += py-phidl
     SUBDIR += py-pyfda
     SUBDIR += py-pygmsh
     SUBDIR += py-pymtl
+    SUBDIR += py-pyvcd
     SUBDIR += py-vunit-hdl
     SUBDIR += python-gdsii
     SUBDIR += qcad
@@ -124,6 +125,7 @@
     SUBDIR += qflow
     SUBDIR += qmls
     SUBDIR += qrouter
+    SUBDIR += qspeakers
     SUBDIR += qucs-s
     SUBDIR += qucsator
     SUBDIR += repsnapper
@@ -151,6 +153,7 @@
     SUBDIR += xcircuit
     SUBDIR += xyce
     SUBDIR += yosys
+    SUBDIR += yosys-ghdl-plugin
     SUBDIR += yosys-systemverilog
     SUBDIR += z88
     SUBDIR += zcad

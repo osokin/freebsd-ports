@@ -10,7 +10,9 @@ WWW=		https://github.com/savoirfairelinux/num2words
 
 LICENSE=	LGPL21
 
-USES=		python:3.6+
+USES=		python
 USE_PYTHON=	distutils autoplist
+
+NO_ARCH=	yes
 
 .include <bsd.port.mk>

@@ -13,7 +13,9 @@ WWW=		https://www.haskell.org/ghc/
 LICENSE=	BSD3CLAUSE
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=		aarch64 amd64 armv6 armv7 i386
+ONLY_FOR_ARCHS=		aarch64 amd64 i386
+
+BUILD_DEPENDS=		${LOCALBASE}/lib/libgmp.so:math/gmp
 
 USES=			autoreconf compiler:c11 gmake \
 			ncurses perl5 python:build shebangfix \
@@ -69,19 +71,19 @@ GMP_VARS_OFF=		hadrian_gmp_arg=--bignum=native
 PROFILE_VARS=		enable_profile=YES hadrian_setting_profile=True
 PROFILE_VARS_OFF=	enable_profile=NO hadrian_setting_profile=False
 
-GHC_VERSION?=		9.4.5
+GHC_VERSION?=		9.4.6
 LLVM_VERSION?=		13
 BOOT_GHC_VERSION?=	9.2.7
 # LLVM version that bootstrap compiler uses
 BOOT_LLVM_VERSION?=	12
 
-BASE_PACKAGES?=		Cabal-3.8.1.0 array-0.5.4.0 base-4.17.1.0 binary-0.8.9.1 \
-			bytestring-0.11.4.0 containers-0.6.7 deepseq-1.4.8.0 \
+BASE_PACKAGES?=		Cabal-3.8.1.0 array-0.5.4.0 base-4.17.2.0 binary-0.8.9.1 \
+			bytestring-0.11.5.1 containers-0.6.7 deepseq-1.4.8.0 \
 			directory-1.3.7.1 exceptions-0.10.5 filepath-1.4.2.2 \
 			ghc-${GHC_VERSION} ghc-bignum-1.3 ghc-compact-0.1.0.0 \
-			ghc-prim-0.9.0 haskeline-0.8.2 hpc-0.6.1.0 \
+			ghc-prim-0.9.1 haskeline-0.8.2 hpc-0.6.1.0 \
 			integer-gmp-1.1 mtl-2.2.2 parsec-3.1.16.1 pretty-1.1.3.6 \
-			process-1.6.16.0 stm-2.5.1.0 template-haskell-2.19.0.0 \
+			process-1.6.17.0 stm-2.5.1.0 template-haskell-2.19.0.0 \
 			terminfo-0.4.1.5 text-2.0.2 time-1.12.2 \
 			transformers-0.5.6.2 unix-2.7.3 xhtml-3000.2.2.1
 
@@ -131,6 +133,7 @@ PLIST_SUB+=		GMP=
 LIB_DEPENDS+=		libffi.so:devel/libffi
 .undef DYNAMIC_CONFIGURE_WITH
 CONFIGURE_ARGS+=	--with-system-libffi --with-ffi-includes=${LOCALBASE}/include --with-ffi-libraries=${LOCALBASE}/lib
+CONFIGURE_ENV+=		CC=${CC} CXX=${CXX}
 SHEBANG_FILES+=		hadrian/bootstrap/bootstrap.py
 HADRIAN_CMD=		${WRKSRC}/hadrian/bootstrap/_build/bin/hadrian ${HADRIAN_DOCS_ARG} ${HADRIAN_GMP_ARG}
 DO_MAKE_BUILD=		${SETENV} ${MAKE_ENV} ${HADRIAN_CMD} ${_MAKE_JOBS} --flavour=ports
@@ -202,22 +205,13 @@ post-patch:
 		${PATCHDIR}/UserSettings.hs > ${WRKSRC}/hadrian/src/UserSettings.hs
 .endif
 
-.if ${BOOT_GHC_VERSION:C/\..*//g} < 9
-# TODO: remove this after rerolling all bootstraps
-post-patch-BOOT-off:
-	@${REINPLACE_CMD} -e '/^mandir/d' ${BOOT_DIR}/mk/build.mk
-	@${REINPLACE_CMD} -e '/^infodir/d' ${BOOT_DIR}/mk/build.mk
-	@${REINPLACE_CMD} -e '/^docdir/d' ${BOOT_DIR}/mk/build.mk
-	@${REINPLACE_CMD} -e '/^htmldir/d' ${BOOT_DIR}/mk/build.mk
-.endif
-
 pre-configure:
 	# Call the bootstrap script
 	cd ${WRKSRC}/ && ${BOOT_SCRIPT}
 # If we are using bootstrap compiler, configure and install it into ${BOOT_DIR}
 .if empty(PORT_OPTIONS:MBOOT)
-	cd ${BOOT_DIR} && ${CONFIGURE_ENV} ${CONFIGURE_CMD} --prefix=${BOOT_INSTALL_DIR}
-	cd ${BOOT_DIR} && PACKAGES='' ${MAKE_CMD} install
+	cd ${BOOT_DIR} && ${CONFIGURE_CMD} ${CONFIGURE_ENV} --prefix=${BOOT_INSTALL_DIR}
+	cd ${BOOT_DIR} && ${MAKE_CMD} PACKAGES='' install
 .endif
 .ifdef USE_HADRIAN
 # Compile Hadrian
@@ -227,7 +221,7 @@ pre-configure:
 
 .ifdef USE_HADRIAN
 pre-install:
-	cd ${INSTALL_WRKSRC} && ${CONFIGURE_ENV} ${CONFIGURE_CMD} --prefix=${PREFIX}
+	cd ${INSTALL_WRKSRC} && ${CONFIGURE_CMD} ${CONFIGURE_ENV} --prefix=${PREFIX}
 .endif
 
 post-install:
@@ -321,7 +315,7 @@ create-hadrian-bootstrap:
 	@${ECHO_CMD} "Generating Hadrian bootstrap without bootstrap GHC isn't supported"
 	${FALSE}
 .endif
-	${MAKE} -C ${.CURDIR} patch build-depends IGNORE_MISSING_HADRIAN=yes
+	${MAKE} -C ${.CURDIR} patch build-depends USE_PACKAGE_DEPENDS_ONLY=yes IGNORE_MISSING_HADRIAN=yes
 # We always would need to create our own plan.json file and put it into PATCHDIR:
 # Predefined plans use integer-gmp, while we build bootstraps with integer-simple
 # Predefined plans aren't pretty-printed, so we can't easily patch them

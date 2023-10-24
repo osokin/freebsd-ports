@@ -1,5 +1,5 @@
 PORTNAME=	google-resumable-media
-PORTVERSION=	2.5.0
+PORTVERSION=	2.6.0
 CATEGORIES=	www python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -13,7 +13,7 @@ LICENSE_FILE=	${WRKSRC}/LICENSE
 
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}google-crc32c>=1.0<2.0:devel/py-google-crc32c@${PY_FLAVOR}
 
-USES=		python:3.7+
+USES=		python
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes
@@ -23,7 +23,8 @@ OPTIONS_DEFAULT=AIOHTTP REQUESTS
 AIOHTTP_DESC=	Use aiohttp
 REQUESTS_DESC=	Use requests
 
-AIOHTTP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}aiohttp>=3.6.2<4.0.0:www/py-aiohttp@${PY_FLAVOR}
+AIOHTTP_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}aiohttp>=3.6.2<4.0.0:www/py-aiohttp@${PY_FLAVOR} \
+			${PYTHON_PKGNAMEPREFIX}google-auth>=1.22.0<3.0:security/py-google-auth@${PY_FLAVOR}
 REQUESTS_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests>=2.18.0:www/py-requests@${PY_FLAVOR}
 
 .include <bsd.port.mk>

@@ -1,5 +1,5 @@
 PORTNAME=	csvkit
-PORTVERSION=	1.1.1
+PORTVERSION=	1.3.0
 CATEGORIES=	textproc python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -15,7 +15,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}agate>=1.6.1:textproc/py-agate@${PY_FLAVOR} 
 		${PYTHON_PKGNAMEPREFIX}agate-dbf>=0.2.2:textproc/py-agate-dbf@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}agate-sql>=0.5.3:databases/py-agate-sql@${PY_FLAVOR}
 
-USES=		python:3.7+
+USES=		python
 USE_PYTHON=	autoplist distutils
 NO_ARCH=	yes
 

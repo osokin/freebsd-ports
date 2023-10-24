@@ -1,12 +1,13 @@
 PORTNAME=	os-brick
-PORTVERSION=	6.3.0
+PORTVERSION=	6.4.0
 CATEGORIES=	devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	OpenStack Cinder brick library for managing local volume attaches
-WWW=		https://docs.openstack.org/os-brick/latest/
+WWW=		https://docs.openstack.org/os-brick/latest/ \
+		https://github.com/openstack/os-brick
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -26,7 +27,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}os-win>=5.7.0:devel/py-os-win@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}requests>=2.25.1:www/py-requests@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}tenacity>=6.3.1:devel/py-tenacity@${PY_FLAVOR}
 
-USES=		python:3.8+
+USES=		python
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes

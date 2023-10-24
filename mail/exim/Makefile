@@ -130,7 +130,7 @@ EXTRA_PATCHES+=	${FILESDIR}/extra-patch-Local-sa-exim.c
 EXTRA_PATCHES+=	${FILESDIR}/extra-patch-Local-sa-exim.conf
 .endif
 
-EXIM_VERSION=	4.96
+EXIM_VERSION=	4.96.2
 SA_EXIM_VERSION=4.2.1
 EXIM_INSTALL_ARG+=	"-no_chown" "-no_symlink"
 EXTRA_PATCHES+=	`${FIND} ${PATCHDIR} -name '74_*.patch'|${SORT} -h`
@@ -406,6 +406,10 @@ SEDLIST+=	-e 's,^\# (AUTH_SPA=),\1,'
 .if ${PORT_OPTIONS:MAUTH_SASL}
 SEDLIST+=	-e 's,^\# (AUTH_CYRUS_SASL=),\1,' \
 		-e 's,^\# (AUTH_LIBS=.*-lsasl2),\1,'
+.endif
+
+.if ${PORT_OPTIONS:MAUTH_TLS}
+SEDLIST+=	-e 's,^\# (AUTH_TLS=),\1,'
 .endif
 
 .if ${PORT_OPTIONS:MAUTH_RADIUS}

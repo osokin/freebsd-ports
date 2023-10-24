@@ -14,7 +14,6 @@
     SUBDIR += bspwm
     SUBDIR += bspwm-devel
     SUBDIR += cage
-    SUBDIR += cage-devel
     SUBDIR += cagebreak
     SUBDIR += chamfer
     SUBDIR += compiz
@@ -33,6 +32,8 @@
     SUBDIR += e16-docs
     SUBDIR += echinus
     SUBDIR += emerald
+    SUBDIR += emwm
+    SUBDIR += emwm-utils
     SUBDIR += enlightenment
     SUBDIR += epplets
     SUBDIR += euclid-wm
@@ -41,6 +42,7 @@
     SUBDIR += fluxbox
     SUBDIR += fluxter
     SUBDIR += flwm
+    SUBDIR += fswm
     SUBDIR += fvwm2
     SUBDIR += fvwm3
     SUBDIR += gamescope
@@ -67,6 +69,7 @@
     SUBDIR += lxqt-panel
     SUBDIR += lxqt-session
     SUBDIR += lxsession
+    SUBDIR += magpie
     SUBDIR += marco
     SUBDIR += mcwm
     SUBDIR += metacity
@@ -78,7 +81,6 @@
     SUBDIR += obpager
     SUBDIR += openbox
     SUBDIR += oroborus
-    SUBDIR += pager
     SUBDIR += peksystray
     SUBDIR += pekwm
     SUBDIR += phluid
@@ -95,6 +97,7 @@
     SUBDIR += rubygem-uh-layout
     SUBDIR += rubygem-uh-wm
     SUBDIR += sawfish
+    SUBDIR += sawfish-pager
     SUBDIR += sdorfehs
     SUBDIR += selectwm
     SUBDIR += skippy-xd

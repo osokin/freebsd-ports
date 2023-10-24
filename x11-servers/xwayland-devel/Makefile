@@ -1,7 +1,7 @@
 PORTNAME=	xwayland
 DISTVERSIONPREFIX=	xorg-server-
-DISTVERSION=	21.0.99.1-468
-DISTVERSIONSUFFIX=	-g${GL_COMMIT:C/(.{12}).*/\1/}
+DISTVERSION=	21.0.99.1-533
+DISTVERSIONSUFFIX=	-gd63d23bde
 CATEGORIES=	x11-servers
 PKGNAMESUFFIX=	-devel
 
@@ -9,7 +9,6 @@ PATCH_SITES+=	https://github.com/mirror/${GL_PROJECT}/commit/:github
 PATCHFILES+=	cd6c9c1246af.patch:-p1:github # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/432
 PATCHFILES+=	3930d00746b0.patch:-p1:github # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/432
 PATCHFILES+=	3b0d1a3a2296.patch:-p1:github # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/432
-PATCHFILES+=	459f07e344fd.patch:-p1:github # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/844
 PATCH_SITES+=	${GL_SITE}/${GL_ACCOUNT}/${GL_PROJECT}/-/commit/
 PATCHFILES+=	8b9bf0a22640.patch:-p1 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1047
 PATCHFILES+=	0c90fb305e9b.patch:-p1 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1051
@@ -23,7 +22,7 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 BUILD_DEPENDS=	evdev-proto>0:devel/evdev-proto \
 		${LOCALBASE}/include/GL/internal/dri_interface.h:graphics/mesa-dri \
-		wayland-protocols>=1.28:graphics/wayland-protocols
+		wayland-protocols>=1.30:graphics/wayland-protocols
 LIB_DEPENDS=	libdrm.so:graphics/libdrm \
 		libepoxy.so:graphics/libepoxy \
 		libwayland-client.so:graphics/wayland \
@@ -40,8 +39,7 @@ USE_XORG=	pixman xau xdmcp xfont2 xkbfile xshmfence xtrans
 GL_SITE=	https://gitlab.freedesktop.org
 GL_ACCOUNT=	xorg
 GL_PROJECT=	xserver
-GL_COMMIT=	13e513d2f04019424761b728340ec716de0c0d29
-GL_TUPLE=	xorg/proto:xorgproto:824001c947cb1962209c6a8f2c63c2637877220d:xorgproto/subprojects/xorgproto
+GL_TUPLE=	xorg/proto:xorgproto:xorgproto-2023.2:xorgproto/subprojects/xorgproto
 MESON_ARGS=	-D${PORTNAME}=true \
 		-Dxorg=false \
 		-Dxnest=false \
@@ -69,12 +67,16 @@ DEFAULT_FONTPATH_LIST= \
 	${FONTPATH_ROOT}/75dpi/ \
 	catalogue:${FONTPATHD}
 
-OPTIONS_DEFINE=	CSD NVIDIA
-OPTIONS_DEFAULT=CSD
+OPTIONS_DEFINE=	CSD EI NVIDIA
+OPTIONS_DEFAULT=CSD EI
 
 CSD_DESC=		Client-side decorations via libdecor
 CSD_LIB_DEPENDS=	libdecor-0.so:x11-toolkits/libdecor
 CSD_MESON_TRUE=		libdecor
+
+EI_DESC=		Emulated input via libei
+EI_LIB_DEPENDS=		libei.so:x11/libei
+EI_MESON_OFF=		-Dxwayland_ei=false
 
 NVIDIA_DESC=		EGLStream support for glamor on Xwayland
 NVIDIA_BUILD_DEPENDS=	egl-wayland>0:graphics/egl-wayland

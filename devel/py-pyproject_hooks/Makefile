@@ -7,12 +7,13 @@ PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Wrappers to call pyproject.toml-based build backend hooks
-WWW=		https://github.com/pypa/pyproject-hooks
+WWW=		https://pyproject-hooks.readthedocs.io/en/latest/ \
+		https://github.com/pypa/pyproject-hooks
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-USES=		python:3.7+
+USES=		python
 USE_PYTHON=	allflavors autoplist concurrent pep517
 
 NO_ARCH=	yes

@@ -24,6 +24,7 @@ LICENSE=	BSD2CLAUSE
 LICENSE_FILE=	${WRKSRC}/license.txt
 
 BROKEN_armv7=	clang runs out of memory
+BROKEN_FreeBSD_14=	fails to build: no member named std in namespace std
 
 PY_DEPENDS=	${PYNUMPY} \
 		${PYTHON_PKGNAMEPREFIX}tables>0:devel/py-tables@${PY_FLAVOR} \
@@ -36,7 +37,7 @@ LIB_DEPENDS=	libhdf5.so:science/hdf5 \
 		libsz.so:science/libaec
 RUN_DEPENDS=	${PY_DEPENDS}
 
-USES=		compiler:c++17-lang fortran python:3.7+
+USES=		compiler:c++17-lang fortran python
 USE_PYTHON=	distutils cython flavors
 
 USE_GITHUB=	yes

@@ -1,11 +1,10 @@
 PORTNAME=	dino
 DISTVERSIONPREFIX=	v
-DISTVERSION=	0.4.2
-PORTREVISION=	2
+DISTVERSION=	0.4.3
 CATEGORIES=	net-im
 
 MAINTAINER=	ashish@FreeBSD.org
-COMMENT=	Modern XMPP Chat Client using GTK+/Vala
+COMMENT=	Modern XMPP Chat Client using GTK/Vala
 WWW=		https://dino.im
 
 LICENSE=	GPLv3

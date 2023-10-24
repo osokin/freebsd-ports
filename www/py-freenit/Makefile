@@ -1,5 +1,5 @@
 PORTNAME=	freenit
-DISTVERSION=	0.2.27
+DISTVERSION=	0.2.29
 CATEGORIES=	www devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -20,7 +20,7 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}httpx>=0:www/py-httpx@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pytest-asyncio>=0:devel/py-pytest-asyncio@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pytest-factoryboy>=0:devel/py-pytest-factoryboy@${PY_FLAVOR}
 
-USES=		python:3.8+
+USES=		python
 USE_PYTHON=	autoplist concurrent distutils pytest
 USE_RC_SUBR=	freenit
 

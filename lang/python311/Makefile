@@ -41,9 +41,7 @@ SUB_FILES=		pkg-message
 SUB_LIST=		PYTHON_SUFFIX=${PYTHON_SUFFIX}
 
 PLIST_SUB=		ABI=${ABIFLAGS} \
-			XY=${PYTHON_SUFFIX} \
-			XYDOT=${PYTHON_VER} \
-			XYZDOT=${DISTVERSION:C/[a-z].*//} \
+			DISTVERSION=${DISTVERSION} \
 			OSMAJOR=${OSVERSION:C/([0-9]*)[0-9]{5}/\1/}		# For plat-freebsd* in pkg-plist. https://bugs.python.org/issue19554
 
 OPTIONS_DEFINE=		DEBUG IPV6 LIBMPDEC LTO NLS PYMALLOC
@@ -108,10 +106,10 @@ DISABLED_EXTENSIONS+=	nis
 PLIST_SUB+=	NO_NIS=""
 .endif
 
-#.if ${SSL_DEFAULT:Mlibressl*}
+.if ${SSL_DEFAULT:Mlibressl*}
 EXTRA_PATCHES+=	${PATCHDIR}/libressl
 CONFIGURE_ENV+=	ac_cv_working_openssl_hashlib=yes
-#.endif
+.endif
 
 post-patch:
 # disable the detection of includes and library from e2fsprogs-libuuid,

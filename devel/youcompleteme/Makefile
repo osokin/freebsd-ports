@@ -1,5 +1,6 @@
 PORTNAME=	YouCompleteMe
-DISTVERSION=	g20220614
+DISTVERSION=	g20230819
+PORTREVISION=	1
 CATEGORIES=	devel
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
@@ -19,12 +20,12 @@ RUN_DEPENDS=	vim:editors/vim \
 		${PYTHON_PKGNAMEPREFIX}parso>0:textproc/py-parso@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}watchdog>0:devel/py-watchdog@${PY_FLAVOR}
 
-USES=		cmake compiler:c++11-lang python:3.6+
+USES=		cmake compiler:c++11-lang python
 USE_PYTHON=	flavors
 USE_GITHUB=	yes
 GH_ACCOUNT=	ycm-core
-GH_TAGNAME=	c99f408
-GH_TUPLE=	ycm-core:ycmd:d1707c1:ycm/third_party/ycmd
+GH_TAGNAME=	e949df3
+GH_TUPLE=	ycm-core:ycmd:45bc1c5:ycm/third_party/ycmd
 
 CMAKE_SOURCE_PATH=	${WRKSRC}/third_party/ycmd/cpp
 

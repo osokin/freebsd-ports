@@ -1,5 +1,5 @@
 PORTNAME=	universal-ctags
-PORTVERSION=	p6.0.20230409.0
+PORTVERSION=	p6.0.20231001.0
 CATEGORIES=	devel
 
 MAINTAINER=	dereks@lifeofadishwasher.com
@@ -9,7 +9,7 @@ WWW=		https://ctags.io/
 LICENSE=	GPLv2
 LICENSE_FILE=	${WRKSRC}/COPYING
 
-USES=		autoreconf gmake pkgconfig python:3.5+,test
+USES=		autoreconf gmake pkgconfig python:test
 USE_GITHUB=	yes
 GH_PROJECT=	ctags
 
@@ -20,14 +20,18 @@ TEST_TARGET=	check
 
 PORTSCOUT=	skipv:v6.0.0
 
-OPTIONS_DEFINE=		DEBUG ICONV JSON LIBXML2 MANPAGES PCRE2 YAML
-OPTIONS_DEFAULT=	${OPTIONS_DEFINE:NDEBUG}
+OPTIONS_DEFINE=		DEBUG GLOBAL_CONFIG ICONV JSON LIBXML2 MANPAGES PCRE2 \
+			YAML
+OPTIONS_DEFAULT=	${OPTIONS_DEFINE:NDEBUG:NGLOBAL_CONFIG}
 OPTIONS_SUB=		yes
 
-JSON_DESC=	JSON output support
-PCRE2_DESC=	${PCRE_DESC} v2
+GLOBAL_CONFIG_DESC=	Enable reading global config from ${LOCALBASE}/etc/uctags.conf
+JSON_DESC=		JSON output support
+PCRE2_DESC=		${PCRE_DESC} v2
 
 DEBUG_CONFIGURE_ENABLE=	debugging
+
+GLOBAL_CONFIG_CONFIGURE_ENABLE=	custom-config="${LOCALBASE}/etc/uctags.conf"
 
 ICONV_USES=		iconv
 ICONV_CONFIGURE_ENABLE=	iconv

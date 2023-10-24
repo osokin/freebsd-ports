@@ -1,9 +1,9 @@
 PORTNAME=	dnsx
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.1.4
+DISTVERSION=	1.1.5
 CATEGORIES=	dns
 
-MAINTAINER=	0xdutra@gmail.com
+MAINTAINER=	nulldutra@proton.me
 COMMENT=	DNS toolkit allow to run multiple DNS queries
 WWW=		https://github.com/projectdiscovery/dnsx
 

@@ -57,6 +57,7 @@ share/locale/eu/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/fi/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/fr/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/gl/LC_MESSAGES/libkscreen5_qt.qm
+share/locale/id/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/it/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/ja/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/ka/LC_MESSAGES/libkscreen5_qt.qm
@@ -69,6 +70,7 @@ share/locale/pt_BR/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/ru/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/sk/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/sl/LC_MESSAGES/libkscreen5_qt.qm
+share/locale/sv/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/tr/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/uk/LC_MESSAGES/libkscreen5_qt.qm
 share/locale/zh_CN/LC_MESSAGES/libkscreen5_qt.qm

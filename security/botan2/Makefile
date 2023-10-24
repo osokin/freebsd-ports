@@ -1,6 +1,6 @@
 PORTNAME=	botan
 DISTVERSION=	2.19.3
-PORTREVISION=	2
+PORTREVISION=	5
 CATEGORIES=	security
 MASTER_SITES=	http://botan.randombit.net/releases/
 PKGNAMESUFFIX=	2
@@ -65,8 +65,8 @@ MANPAGES_CONFIGURE_WITH=	sphinx
 
 OPENMP_CONFIGURE_ON=	--with-openmp
 
-PYTHON_USES=		python:3.6+
-PYTHON_USES_OFF=	python:3.6+,build
+PYTHON_USES=		python
+PYTHON_USES_OFF=	python:build
 PYTHON_CONFIGURE_ON=	--with-python-versions=${PYTHON_VER}
 PYTHON_CONFIGURE_OFF=	--no-install-python-module
 
@@ -77,8 +77,10 @@ SQLITE3_CONFIGURE_WITH=	sqlite3
 
 .if ${ARCH} == aarch64
 CONFIGURE_ARGS+=	--cc-abi="-march=armv8-a+crypto"
-.elif ${ARCH:Mpowerpc64*}
+.elif ${ARCH} == powerpc64
 CONFIGURE_ARGS+=	--cpu="ppc64"
+.elif ${ARCH} == powerpc64le
+CONFIGURE_ARGS+=	--cpu="ppc64le"
 .endif
 
 .if ${ARCH} == i386 || ${ARCH} == amd64

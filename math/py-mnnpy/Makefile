@@ -1,5 +1,6 @@
 PORTNAME=	mnnpy
 DISTVERSION=	0.1.9.5
+PORTREVISION=	1
 CATEGORIES=	math python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -19,8 +20,15 @@ PY_DEPENDS=	${PYTHON_PKGNAMEPREFIX}anndata>0:devel/py-anndata@${PY_FLAVOR} \
 BUILD_DEPENDS=	${PY_DEPENDS}
 RUN_DEPENDS=	${PY_DEPENDS}
 
-USES=		python:3.4+
+USES=		python
 USE_PYTHON=	distutils cython autoplist
+
+post-patch:
+.if defined(CPUTYPE)
+	@${REINPLACE_CMD} -e "s|'-march=native'|'-march=${CPUTYPE}'|" ${WRKSRC}/setup.py
+.else
+	@${REINPLACE_CMD} -e "s|'-march=native', ||" ${WRKSRC}/setup.py
+.endif
 
 post-install:
 	@${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/mnnpy/_utils.cpython-39.so

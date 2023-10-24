@@ -1,5 +1,5 @@
 PORTNAME=	fastapi-users
-DISTVERSION=	11.0.0
+DISTVERSION=	12.1.2
 CATEGORIES=	www devel python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -26,7 +26,7 @@ TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}asgi-lifespan>=0:devel/py-asgi-lifespan@${P
 		${PYTHON_PKGNAMEPREFIX}pytest-asyncio>=0:devel/py-pytest-asyncio@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}pytest-mock>=0:devel/py-pytest-mock@${PY_FLAVOR}
 
-USES=		python:3.7+
+USES=		python
 USE_PYTHON=	autoplist distutils pytest
 
 TEST_ENV=	PYTHONPATH=${WRKSRC}/src
@@ -48,10 +48,4 @@ OAUTH_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}httpx-oauth>=0.3,<0.4:www/py-httpx-oau
 SQLALCHEMY_RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}databases>=0.3.0:databases/py-databases@${PY_FLAVOR} \
 			${PYTHON_PKGNAMEPREFIX}sqlalchemy14>=1.4.0:databases/py-sqlalchemy14@${PY_FLAVOR}
 
-.include <bsd.port.pre.mk>
-
-.if ${PYTHON_REL} < 30800
-RUN_DEPENDS+=	${PYTHON_PKGNAMEPREFIX}typing-extensions>=3.7.4.3:devel/py-typing-extensions@${PY_FLAVOR}
-.endif
-
-.include <bsd.port.post.mk>
+.include <bsd.port.mk>

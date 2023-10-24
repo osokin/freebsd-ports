@@ -1,15 +1,17 @@
 PORTNAME=	weggli
 DISTVERSIONPREFIX=	v
 DISTVERSION=	0.2.3
-PORTREVISION=	14
+PORTREVISION=	17
 CATEGORIES=	security
 
-MAINTAINER=	0mp@FreeBSD.org
+MAINTAINER=	ports@FreeBSD.org
 COMMENT=	Semantic search tool for C and C++ codebases
 WWW=		https://github.com/googleprojectzero/weggli
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
+
+BROKEN=	error: version script assignment of 'global' to symbol '__muloti4' failed: symbol not defined
 
 USES=		cargo
 USE_GITHUB=	yes

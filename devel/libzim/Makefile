@@ -1,6 +1,5 @@
 PORTNAME=	libzim
-DISTVERSION=	8.2.0
-PORTREVISION=	1
+DISTVERSION=	8.2.1
 CATEGORIES=	devel
 MASTER_SITES=	https://download.openzim.org/release/libzim/
 
@@ -16,7 +15,7 @@ LIB_DEPENDS=	libicui18n.so:devel/icu \
 		libxapian.so:databases/xapian-core \
 		libzstd.so:archivers/zstd
 
-USES=		compiler:c++14-lang meson pkgconfig python:3.6+ tar:xz
+USES=		compiler:c++14-lang meson pkgconfig python tar:xz
 USE_LDCONFIG=	yes
 
 MESON_ARGS=	-Dcpp_std=c++14

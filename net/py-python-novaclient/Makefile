@@ -1,12 +1,13 @@
 PORTNAME=	python-novaclient
-PORTVERSION=	18.3.0
+PORTVERSION=	18.4.0
 CATEGORIES=	net python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
 
 MAINTAINER=	sunpoet@FreeBSD.org
 COMMENT=	Client for the OpenStack Nova API
-WWW=		https://docs.openstack.org/python-novaclient/latest/
+WWW=		https://docs.openstack.org/python-novaclient/latest/ \
+		https://github.com/openstack/python-novaclient
 
 LICENSE=	APACHE20
 LICENSE_FILE=	${WRKSRC}/LICENSE
@@ -21,7 +22,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}iso8601>=0.1.11:devel/py-iso8601@${PY_FLAVOR
 		${PYTHON_PKGNAMEPREFIX}requests>=2.10.0:www/py-requests@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}stevedore>=2.0.1:devel/py-stevedore@${PY_FLAVOR}
 
-USES=		python:3.8+ shebangfix
+USES=		python shebangfix
 USE_PYTHON=	autoplist concurrent distutils
 
 NO_ARCH=	yes

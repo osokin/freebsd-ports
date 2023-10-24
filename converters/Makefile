@@ -20,6 +20,7 @@
     SUBDIR += cmios9
     SUBDIR += cocot
     SUBDIR += convmv
+    SUBDIR += dos2unix
     SUBDIR += dosunix
     SUBDIR += drg2sbg
     SUBDIR += dumpasn1
@@ -167,6 +168,7 @@
     SUBDIR += rubygem-url_safe_base64
     SUBDIR += rubygem-xdr
     SUBDIR += showkey
+    SUBDIR += simdutf
     SUBDIR += ta2as
     SUBDIR += tnef
     SUBDIR += trans

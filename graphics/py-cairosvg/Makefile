@@ -1,5 +1,5 @@
 PORTNAME=	cairosvg
-PORTVERSION=	2.7.0
+PORTVERSION=	2.7.1
 CATEGORIES=	graphics python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -21,7 +21,7 @@ RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cairocffi>=0:graphics/py-cairocffi@${PY_FLAV
 TEST_DEPENDS=	${PYTHON_PKGNAMEPREFIX}isort>=0:devel/py-isort@${PY_FLAVOR} \
 		${PYTHON_PKGNAMEPREFIX}flake8>=0:devel/py-flake8@${PY_FLAVOR} \
 
-USES=		cpe python:3.7+
+USES=		cpe python
 USE_PYTHON=	autoplist concurrent distutils pytest
 
 NO_ARCH=	yes

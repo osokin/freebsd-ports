@@ -1,5 +1,5 @@
 PORTNAME=	brotlicffi
-PORTVERSION=	1.0.9.2
+PORTVERSION=	1.1.0.0
 CATEGORIES=	archivers python
 MASTER_SITES=	PYPI
 PKGNAMEPREFIX=	${PYTHON_PKGNAMEPREFIX}
@@ -15,7 +15,7 @@ BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>=1.0.0:devel/py-cffi@${PY_FLAVOR}
 LIB_DEPENDS=	libbrotlienc.so:archivers/brotli
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}cffi>=1.0.0:devel/py-cffi@${PY_FLAVOR}
 
-USES=		localbase python:3.6+
+USES=		localbase python
 USE_PYTHON=	autoplist concurrent distutils
 
 MAKE_ENV=	USE_SHARED_BROTLI=1

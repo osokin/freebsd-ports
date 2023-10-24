@@ -567,10 +567,15 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 # fetch-url-list
 #				- Show list of URLS to retrieve missing ${DISTFILES} and
 #				  ${PATCHFILES} for this port.
+# fetch-url-recursive-list
+#				- Show list of URLS to retrieve missing ${DISTFILES} and
+#				  ${PATCHFILES} for this port and dependencies.
 # fetch-urlall-list
 #				- Show list of URLS to retrieve ${DISTFILES} and
 #				  ${PATCHFILES} for this port.
-#
+# fetch-urlall-recursive-list
+#				- Show list of URLS to retrieve ${DISTFILES} and
+#				  ${PATCHFILES} for this port and dependencies.
 # all-depends-list
 #				- Show all directories which are dependencies
 #				  for this port.
@@ -595,8 +600,8 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				- Show all directories which are test-dependencies
 #				  for this port.
 # install-missing-packages
-#               - Install missing dependencies from package and mark
-#                 them as automatically installed.
+#				- Install missing dependencies from package and mark
+#				  them as automatically installed.
 # extract		- Unpacks ${DISTFILES} into ${WRKDIR}.
 # patch			- Apply any provided patches to the source.
 # configure		- Runs either GNU configure, one or more local configure
@@ -613,9 +618,10 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				- Create a package for a port and _all_ of its dependencies.
 # describe		- Try to generate a one-line description for each port for
 #				  use in INDEX files and the like.
-# check-plist		- Checks for files missing from the plist, and files in the plist
-#				  that are not installed by the port.
-# check-sanity		- Perform some basic checks of the port layout.
+# describe-json	- Generate a JSON-compliant representation of each port.
+# check-plist	- Checks for files missing from the plist, and files in the
+#				  plist that are not installed by the port.
+# check-sanity	- Perform some basic checks of the port layout.
 # checkpatch	- Do a "patch -C" instead of a "patch".  Note that it may
 #				  give incorrect results if multiple patches deal with
 #				  the same file.
@@ -852,7 +858,7 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				  described below except that any line beginning with @comment
 #				  is deleted.
 # SUB_LIST		- List of "variable=value" pair for substitution in ${SUB_FILES}
-#				  Some pairs are added by default: eg. PREFIX=${PREFIX}
+#				  Some pairs are added by default: e.g. PREFIX=${PREFIX}
 #
 # USE_LDCONFIG  - If set to "yes", this adds ${PREFIX}/lib to the list of
 #				  directories to be searched for shared libraries.
@@ -898,7 +904,7 @@ FreeBSD_MAINTAINER=	portmgr@FreeBSD.org
 #				  "Name" "Comment" "Icon" "Exec" "Categories" StartupNotify
 #				  Rules:
 #					* Only add desktop entries for applications which do not
-#					  require a terminal (ie. X applications).
+#					  require a terminal (i.e. X11 applications).
 #					* If the upstream distribution already installs .desktop
 #					  files, you do not need to use this.
 #					* If you require a more elaborate .desktop file than this
@@ -1116,10 +1122,8 @@ makepatch:
 		${SH} ${SCRIPTSDIR}/smart_makepatch.sh
 .  endif
 
-
 # Start of options section
 .  if defined(INOPTIONSMK) || ( !defined(USEOPTIONSMK) && !defined(AFTERPORTMK) )
-
 
 # Get the default maintainer
 MAINTAINER?=	ports@FreeBSD.org
@@ -1180,7 +1184,7 @@ OSVERSION!=	${AWK} '/^\#define[[:blank:]]__FreeBSD_version/ {print $$3}' < ${SRC
 .    endif
 _EXPORTED_VARS+=	OSVERSION
 
-.    if ${OPSYS} == FreeBSD && (${OSVERSION} < 1204000 || (${OSVERSION} >= 1300000 && ${OSVERSION} < 1301000))
+.    if ${OPSYS} == FreeBSD && (${OSVERSION} < 1204000 || (${OSVERSION} >= 1300000 && ${OSVERSION} < 1302000))
 _UNSUPPORTED_SYSTEM_MESSAGE=	Ports Collection support for your ${OPSYS} version has ended, and no ports\
 								are guaranteed to build on this system. Please upgrade to a supported release.
 .      if defined(ALLOW_UNSUPPORTED_SYSTEM)
@@ -1282,6 +1286,23 @@ PKGCATEGORY?=	${_CATEGORY}
 _PORTDIRNAME=	${.CURDIR:T}
 PORTDIRNAME?=	${_PORTDIRNAME}
 PKGORIGIN?=		${PKGCATEGORY}/${PORTDIRNAME}
+
+# Now that PKGORIGIN is set, look for origin-specific variables.
+# These are typically set in a make.conf, in the form:
+#
+# category_portname_VARS= varname=value othervar+=value novar@
+#
+# e.g.  devel_llvm10_VARS= MAKE_JOBS_NUMBER=2
+
+.    for var in ${${PKGORIGIN:S/\//_/}_VARS:C/=.*//:O:u}
+.      if ${var:M*@}
+.  undef ${var:C/.$//}
+.      elif ${var:M*+}
+${var:C/.$//}+=	${${PKGORIGIN:S/\//_/}_VARS:M${var}=*:C/[^+]*\+=//:C/^"(.*)"$$/\1/}
+.      else
+${var}=			${${PKGORIGIN:S/\//_/}_VARS:M${var}=*:C/[^=]*=//:C/^"(.*)"$$/\1/}
+.      endif
+.    endfor
 
 # where 'make config' records user configuration options
 PORT_DBDIR?=	/var/db/ports
@@ -1522,7 +1543,6 @@ SUB_LIST+=	${FLAVOR:tu}="" NO_${FLAVOR:tu}="@comment "
 .      endif
 .    endif # defined(${FLAVOR})
 
-
 EXTRACT_SUFX?=			.tar.gz
 
 .    if defined(USE_LINUX_PREFIX)
@@ -1627,6 +1647,7 @@ QA_ENV+=		STAGEDIR=${STAGEDIR} \
 				PKGORIGIN=${PKGORIGIN} \
 				LIB_RUN_DEPENDS='${_LIB_RUN_DEPENDS:C,[^:]*:([^:]*):?.*,\1,}' \
 				UNIFIED_DEPENDS=${_UNIFIED_DEPENDS:C,([^:]*:[^:]*):?.*,\1,:O:u:Q} \
+				WANTED_LIBRARIES='${LIB_DEPENDS:C,([^:]*):([^:]*):?.*,\1,}' \
 				PKGBASE=${PKGBASE} \
 				LICENSE="${LICENSE}" \
 				LICENSE_PERMS="${_LICENSE_PERMS}" \
@@ -1702,7 +1723,7 @@ WRKSRC?=		${WRKDIR}/${GH_PROJECT_DEFAULT}-${GH_TAGNAME_EXTRACT}
 .      if defined(WRKSRC)
 DEV_WARNING+=	"You are using USE_GITLAB and WRKSRC is set which is wrong.  Set GL_PROJECT, GL_ACCOUNT correctly, and/or set WRKSRC_SUBDIR and remove WRKSRC entirely."
 .      endif
-WRKSRC?=		${WRKDIR}/${GL_PROJECT}-${GL_COMMIT}
+WRKSRC?=		${WRKDIR}/${GL_PROJECT}-${GL_TAGNAME}
 .    endif
 
 # If the distname is not extracting into a specific subdirectory, have the
@@ -1895,7 +1916,6 @@ CO_ENV+=	NO_PREFIX_RMDIR=1
 .    else
 CO_ENV+=	NO_PREFIX_RMDIR=0
 .    endif
-
 
 METADIR=		${WRKDIR}/.metadir
 
@@ -2940,12 +2960,6 @@ DEPENDS_ARGS+=	NOCLEANDEPENDS=yes
 .      endif
 .    endif
 
-.    if defined(USE_GITLAB) && !${USE_GITLAB:Mnodefault} && empty(GL_COMMIT_DEFAULT)
-check-makevars::
-	@${ECHO_MSG} "GL_COMMIT is a required 40 character hash for use USE_GITLAB"
-	@${FALSE}
-.    endif
-
 ################################################################
 #
 # Do preliminary work to detect if we need to run the config
@@ -3126,11 +3140,25 @@ fetch-url-list-int:
 .      endif
 .    endif
 
+.    if !target(fetch-url-recursive-list-int)
+fetch-url-recursive-list-int: fetch-url-list-int
+	@recursive_cmd="fetch-url-list-int"; \
+	    recursive_dirs="$$(${ALL-DEPENDS-FLAVORS-LIST})"; \
+		${_FLAVOR_RECURSIVE_SH}
+.    endif
+
 # Prints out all the URL for all the DISTFILES and PATCHFILES.
 
 .    if !target(fetch-urlall-list)
 fetch-urlall-list:
 	@cd ${.CURDIR} && ${SETENV} FORCE_FETCH_ALL=yes ${MAKE} fetch-url-list-int
+.    endif
+
+.    if !target(fetch-urlall-recursive-list)
+fetch-urlall-recursive-list: fetch-urlall-list
+	@recursive_cmd="fetch-urlall-list"; \
+	    recursive_dirs="$$(${ALL-DEPENDS-FLAVORS-LIST})"; \
+		${_FLAVOR_RECURSIVE_SH}
 .    endif
 
 # Prints the URL for all the DISTFILES and PATCHFILES that are not here
@@ -3139,6 +3167,12 @@ fetch-urlall-list:
 fetch-url-list: fetch-url-list-int
 .    endif
 
+.    if !target(fetch-url-recursive-list)
+fetch-url-recursive-list: fetch-url-list
+	@recursive_cmd="fetch-url-list"; \
+	    recursive_dirs="$$(${ALL-DEPENDS-FLAVORS-LIST})"; \
+		${_FLAVOR_RECURSIVE_SH}
+.    endif
 
 # Extract
 
@@ -3377,7 +3411,6 @@ _EXTRA_PACKAGE_TARGET_DEP+=	${PKGLATESTREPOSITORY}
 _PORTS_DIRECTORIES+=	${PKGLATESTREPOSITORY}
 _EXTRA_PACKAGE_TARGET_DEP+=	${PKGLATESTFILE}
 
-
 ${PKGLATESTFILE}: ${PKGFILE} ${PKGLATESTREPOSITORY}
 	${INSTALL} -l rs ${PKGFILE} ${PKGLATESTFILE}
 
@@ -3449,7 +3482,6 @@ install-package:
 	fi; \
 	${PKG_ADD} ${_INSTALL_PKG_ARGS} $${_pkgfile}
 .    endif
-
 
 # Utility targets follow
 
@@ -4284,7 +4316,6 @@ create-manifest:
 			${PKG_NOTES_ENV}                                      \
 			${SH} ${SCRIPTSDIR}/create-manifest.sh
 
-
 # Print out package names.
 
 package-depends:
@@ -4368,6 +4399,75 @@ describe-${f}:
 .      endif # empty(FLAVORS)
 .    endif
 
+.	if empty(FLAVORS) || defined(_DESCRIBE_WITH_FLAVOR)
+
+.		if defined(_DESCRIBE_WITH_FLAVOR)
+_JSON_OBJ_NAME="\"${FLAVOR}-${.CURDIR:T}\":"
+.		endif
+
+describe-json:
+	@(${ECHO_CMD} "${_JSON_OBJ_NAME} { ";\
+	${ECHO_CMD} \"uses\":[\"${USES:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"flavors\":[\"${FLAVORS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"options_default\":[\"${OPTIONS_DEFAULT:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"fetch_depends\":[\"${FETCH_DEPENDS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"extract_depends\":[\"${EXTRACT_DEPENDS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"patch_depends\":[\"${PATCH_DEPENDS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"build_depends\":[\"${BUILD_DEPENDS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"lib_depends\":[\"${LIB_DEPENDS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"run_depends\":[\"${RUN_DEPENDS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"test_depends\":[\"${TEST_DEPENDS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"pkg_depends\":[\"${PKG_DEPENDS:ts,:Q:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"complete_options_list\":[\"${COMPLETE_OPTIONS_LIST:ts,:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"categories\":[\"${CATEGORIES:ts,:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"license\":[\"${LICENSE:ts,:S/,/\",\"/g}\"], ;\
+	${ECHO_CMD} \"deprecated\":\""${DEPRECATED:S/"/\\\"/g:S/\\\\*/*/g:S/\\\'/'/g}" \", ;\
+	${ECHO_CMD} \"broken\":\"${BROKEN:Q:S/"/\\\"/g:S/\\\\*/*/g:S/\\\'/'/g}\", ;\
+	${ECHO_CMD} \"distversion\":\"${DISTVERSION}\", ;\
+	${ECHO_CMD} \"distversionprefix\":\"${DISTVERSIONPREFIX}\", ;\
+	${ECHO_CMD} \"distversionsuffix\":\"${DISTVERSIONSUFFIX}\", ;\
+	${ECHO_CMD} \"expiration_date\":\"${EXPIRATION_DATE}\", ;\
+	${ECHO_CMD} \"flavor\":\"${FLAVOR}\", ;\
+	${ECHO_CMD} \"gh_account\":\"${GH_ACCOUNT}\", ;\
+	${ECHO_CMD} \"gh_project\":\"${GH_PROJECT}\", ;\
+	${ECHO_CMD} \"gh_tagname\":\"${GH_TAGNAME}\", ;\
+	${ECHO_CMD} \"gl_account\":\"${GL_ACCOUNT}\", ;\
+	${ECHO_CMD} \"gl_commit\":\"${GL_COMMIT}\", ;\
+	${ECHO_CMD} \"gl_project\":\"${GL_PROJECT}\", ;\
+	${ECHO_CMD} \"gl_site\":\"${GL_SITE}\", ;\
+	${ECHO_CMD} \"maintainer\":\"${MAINTAINER}\", ;\
+	${ECHO_CMD} \"makefiles\":\"${MAKEFILES}\", ;\
+	${ECHO_CMD} \"pkgbase\":\"${PKGBASE}\", ;\
+	${ECHO_CMD} \"pkgname\":\"${PKGNAME}\", ;\
+	${ECHO_CMD} \"pkgnamesuffix\":\"${PKGNAMESUFFIX}\", ;\
+	${ECHO_CMD} \"pkgorigin\":\"${PKGORIGIN}\", ;\
+	${ECHO_CMD} \"pkg_depends\":\"${PKG_DEPENDS}\", ;\
+	${ECHO_CMD} \"portepoch\":\"${PORTEPOCH}\", ;\
+	${ECHO_CMD} \"portname\":\"${PORTNAME}\", ;\
+	${ECHO_CMD} \"portrevision\":\"${PORTREVISION}\", ;\
+	${ECHO_CMD} \"portversion\":\"${PORTVERSION}\", ;\
+	${ECHO_CMD} \"use_github\":\"${USE_GITHUB}\", ;\
+	${ECHO_CMD} \"use_gitlab\":\"${USE_GITLAB}\", ;\
+	${ECHO_CMD} \"www\":\"${WWW:Q}\" ;\
+	${ECHO_CMD} "}" >> ${INDEX_OUT})
+.	else # empty(FLAVORS)
+describe-json: ${FLAVORS:S/^/describe-json-/}
+_LAST_FLAVOR = ${FLAVORS:[-1]}
+.	for f in ${FLAVORS}
+describe-json-${f}:
+	@if [ "${f}" == "${FLAVORS:[1]}" ]; then \
+		${ECHO_CMD} "{" ;\
+	fi;
+	@cd ${.CURDIR} && ${SETENV} FLAVOR=${f} ${MAKE} -B -D_DESCRIBE_WITH_FLAVOR describe-json
+	@if [ "${f}" != "${_LAST_FLAVOR}" ]; then \
+		${ECHO_MSG} "," ;\
+	else \
+		${ECHO_CMD} "}" ;\
+	fi; \
+
+.	endfor
+.	endif # empty(FLAVORS)
+
 www-site:
 	@${ECHO_CMD} ${_WWW}
 
@@ -4412,7 +4512,6 @@ _PRETTY_PRINT_DEPENDS_LIST=\
 		${ECHO_MSG} -n `${AWK} -F\| "\\$$1 ~ /^${PKGNAME}/ {print \\$$$${fldnum};}" ${INDEXDIR}/${INDEXFILE}` ; \
 		${ECHO_MSG} "\" to $$target."; \
 	fi;
-
 
 .    if !target(pretty-print-build-depends-list)
 pretty-print-build-depends-list:

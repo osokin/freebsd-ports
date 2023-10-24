@@ -30,7 +30,7 @@ DOCSDIR=	${PREFIX}/share/doc/${PORTNAME}${LLVM_SUFFIX}
 DATADIR=	${PREFIX}/share/${PORTNAME}${LLVM_SUFFIX}
 
 USES=		cmake compiler:c++17-lang cpe shebangfix
-_USES_PYTHON?=	python:3.7+,build
+_USES_PYTHON?=	python:build
 USES+=		${_USES_PYTHON}
 USE_LDCONFIG=	${LLVM_PREFIX}/lib
 SHEBANG_FILES=	\
@@ -75,12 +75,7 @@ CMAKE_ARGS+=	-DLLVM_PARALLEL_LINK_JOBS=1
 CMAKE_ARGS+=	-DLLVM_ENABLE_Z3_SOLVER=OFF
 CMAKE_ARGS+=	-DLLVM_ENABLE_LIBXML2=OFF
 CMAKE_ARGS+=	-DLLVM_ENABLE_LIBEDIT=OFF
-CMAKE_ARGS+=	-DPYTHON_EXECUTABLE=${PYTHON_CMD}
-
-# Disable assertions.  They should be disabled by cmake, but USES=cmake
-# overrides -DCMAKE_*_FLAGS_RELEASE.
-CFLAGS+=	-DNDEBUG
-CXXFLAGS+=	-DNDEBUG
+CMAKE_ARGS+=	-DLLVM_ENABLE_ASSERTIONS=ON
 
 USE_GITHUB=	yes
 GH_PROJECT=	llvm-project
@@ -94,18 +89,21 @@ OPTIONS_EXCLUDE_armv6=	COMPILER_RT
 OPTIONS_EXCLUDE_armv7=	COMPILER_RT
 OPTIONS_SUB=	yes
 .if !${FLAVOR:Mlite}
-OPTIONS_DEFINE+=	EXTRAS FLANG LIT LLDB MLIR OPENMP
+OPTIONS_DEFINE+=	EXTRAS FLANG LIT LLDB MLIR OPENMP POLLY
 OPTIONS_DEFINE_amd64=	GOLD
 OPTIONS_DEFINE_powerpc=	GOLD
 OPTIONS_DEFINE_powerpc64=	GOLD
 OPTIONS_DEFINE_powerpc64le=	GOLD
 
-OPTIONS_DEFAULT+=	COMPILER_RT EXTRAS FLANG LIT LLDB MLIR OPENMP STATIC_LIBS
+OPTIONS_DEFAULT+=	COMPILER_RT EXTRAS FLANG LIT LLDB MLIR OPENMP POLLY \
+			STATIC_LIBS
 OPTIONS_DEFAULT_amd64=	GOLD
 OPTIONS_DEFAULT_powerpc=	GOLD
 OPTIONS_DEFAULT_powerpc64=	GOLD
 OPTIONS_DEFAULT_powerpc64le=	GOLD
 
+# COMPILER_RT disabled due to https://github.com/llvm/llvm-project/issues/63418
+OPTIONS_EXCLUDE_aarch64=	COMPILER_RT FLANG OPENMP
 OPTIONS_EXCLUDE_armv6+=	FLANG OPENMP
 OPTIONS_EXCLUDE_armv7+=	FLANG OPENMP
 OPTIONS_EXCLUDE_i386=	FLANG OPENMP
@@ -115,7 +113,7 @@ OPTIONS_EXCLUDE_FreeBSD_12=	OPENMP
 .endif
 
 _ALL_OPTIONS=	CLANG COMPILER_RT DOCS EXTRAS FLANG GOLD LIT LLD LLDB MLIR \
-		OPENMP STATIC_LIBS
+		OPENMP POLLY STATIC_LIBS
 
 CLANG_DESC=	Build clang
 CLANG_CMAKE_ON=		-DCLANG_DEFAULT_OPENMP_RUNTIME=libomp
@@ -135,14 +133,17 @@ CLANG_USE=		PERL5=build
 COMPILER_RT_DESC=	Sanitizer libraries
 COMPILER_RT_IMPLIES=	CLANG
 COMPILER_RT_PLIST_FILES=${_COMPILER_RT_LIBS}
-DOCS_BUILD_DEPENDS=	${PYTHON_PKGNAMEPREFIX}sphinx-markdown-tables>=0:textproc/py-sphinx-markdown-tables@${PY_FLAVOR} \
-			${PYTHON_PKGNAMEPREFIX}recommonmark>=0.0.20180530:textproc/py-recommonmark@${PY_FLAVOR}
+DOCS_BUILD_DEPENDS= \
+	${PYTHON_PKGNAMEPREFIX}myst-parser>0:textproc/py-myst-parser@${PY_FLAVOR} \
+	${PYTHON_PKGNAMEPREFIX}recommonmark>=0.0.20180530:textproc/py-recommonmark@${PY_FLAVOR} \
+	${PYTHON_PKGNAMEPREFIX}sphinx-markdown-tables>=0:textproc/py-sphinx-markdown-tables@${PY_FLAVOR}
 DOCS_CONFLICTS_BUILD=	cmark
 DOCS_PORTDOCS=		llvm
-DOCS_CMAKE_ON=		-DLLVM_ENABLE_SPHINX=ON \
-			-DSPHINX_EXECUTABLE=${LOCALBASE}/bin/sphinx-build-${PYTHON_VER} \
-			-DSPHINX_WARNINGS_AS_ERRORS=OFF \
-			-DLLVM_BUILD_DOCS=ON
+DOCS_CMAKE_ON= \
+	-DLLVM_ENABLE_SPHINX=ON \
+	-DSPHINX_EXECUTABLE=${LOCALBASE}/bin/sphinx-build-${PYTHON_VER} \
+	-DSPHINX_WARNINGS_AS_ERRORS=OFF \
+	-DLLVM_BUILD_DOCS=ON
 DOCS_PLIST_FILES=	${MAN1SRCS:S|^|man/man1/|:S|.1$|${LLVM_SUFFIX}.1.gz|}
 EXTRAS_DESC=		Extra clang tools
 EXTRAS_IMPLIES=		CLANG
@@ -156,7 +157,7 @@ GOLD_CMAKE_ON=		-DLLVM_BINUTILS_INCDIR=${LOCALBASE}/include
 GOLD_BUILD_DEPENDS=	${LOCALBASE}/bin/ld.gold:devel/binutils
 GOLD_PLIST_FILES=	${LLVM_DIR}/lib/LLVMgold.so
 LIT_DESC=		Install lit and FileCheck test tools
-LIT_VARS=		_USES_PYTHON=python:3.7+
+LIT_VARS=		_USES_PYTHON=python
 LIT_PLIST_SUB=		LIT_MOD_NAME=${LIT_MOD_NAME}
 LLD_DESC=		Install lld, the LLVM linker
 LLDB_BUILD_DEPENDS=	swig:devel/swig
@@ -165,12 +166,17 @@ LLDB_IMPLIES=		CLANG
 LLDB_PLIST_SUB=		PYTHON_ABIVER=${PYTHON_ABIVER}
 LLDB_USES=		lua:53 libedit
 LLDB_USE=		GNOME=libxml2
-LLDB_VARS=		_USES_PYTHON=python:3.7+
+LLDB_VARS=		_USES_PYTHON=python
 MLIR_DESC=		Multi-Level Intermediate Representation
 OPENMP_DESC=		Install libomp, the LLVM OpenMP runtime library
-OPENMP_CMAKE_ON=	-DLIBOMPTARGET_BUILD_DEVICERTL_BCLIB=OFF
+OPENMP_CMAKE_ON= \
+	-DLIBOMPTARGET_BUILD_DEVICERTL_BCLIB=OFF \
+	-DLIBOMPTARGET_DEP_LIBFFI_INCLUDE_DIR="" \
+	-DLIBOMPTARGET_DEP_LIBFFI_LIBRARIES=""
 OPENMP_PORTDOCS=	openmp
-STATIC_LIBS_DESC=	Install static libraries (does not effect sanitizers)
+POLLY_DESC=		Polyhedral loop and data-locality optimizer
+POLLY_PORTDOCS=	polly
+STATIC_LIBS_DESC= Install static libraries (does not effect sanitizers)
 
 CONFLICTS_INSTALL=	${PORTNAME}${LLVM_SUFFIX} ${PORTNAME}${LLVM_SUFFIX}-lite
 
@@ -291,7 +297,13 @@ LLVM_ENABLE_PROJECTS+=	openmp
 MAN1SRCS+=	${OPENMP_MAN1SRCS}
 COMMANDS+=	${OPENMP_COMMANDS}
 .endif
-OPENMP_PATTERN=	${OPENMP_COMMANDS:tW:C/  */|/g}|cmake\/openmp|libarcher|lib[ig]*omp|omp.h|ompt.h|ompt-multiplex.h|omp-tools.h
+OPENMP_PATTERN=	${OPENMP_COMMANDS:tW:C/  */|/g}|cmake\/openmp|libarcher|lib[ig]*omp|omp.h|ompt.h|ompt-multiplex.h|ompx.h|omp-tools.h
+
+.if ${PORT_OPTIONS:MPOLLY}
+LLVM_ENABLE_PROJECTS+=	polly
+MAN1SRCS+=	${POLLY_MAN1SRCS}
+.endif
+POLLY_PATTERN=	include\/polly|cmake\/polly|LLVMPolly.so|libPolly
 
 .if defined(LLVM_ENABLE_PROJECTS)
 CMAKE_ARGS+=	-DLLVM_ENABLE_PROJECTS="${LLVM_ENABLE_PROJECTS:ts;}"
@@ -364,7 +376,9 @@ post-patch:
 	    -e 's|lit\.|${LIT_MOD_NAME}.|g' \
 	    ${WRKSRC}/llvm/utils/lit/lit.py \
 	    ${WRKSRC}/llvm/utils/lit/lit/*.py \
-	    ${WRKSRC}/llvm/utils/lit/lit/formats/*.py
+	    ${WRKSRC}/llvm/utils/lit/lit/builtin_commands/*.py \
+	    ${WRKSRC}/llvm/utils/lit/lit/formats/*.py \
+	    ${WRKSRC}/llvm/utils/lit/lit/llvm/*.py
 
 post-patch-CLANG-on:
 	${REINPLACE_CMD} -e 's|%%LLVM_PREFIX%%|${LLVM_PREFIX}|' \
@@ -439,14 +453,17 @@ post-install-LIT-on:
 	${LN} -fs ../${LLVM_DIR}/bin/llvm-lit \
 	    ${STAGEDIR}${PREFIX}/bin/llvm-lit${LLVM_SUFFIX}
 	${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}
-	${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}/builtin_commands
-	${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}/formats
 	${INSTALL_DATA} ${WRKSRC}/llvm/utils/lit/lit/*.py \
 	    ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}
+	${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}/builtin_commands
 	${INSTALL_DATA} ${WRKSRC}/llvm/utils/lit/lit/builtin_commands/*.py \
 	    ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}/builtin_commands/
+	${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}/formats
 	${INSTALL_DATA} ${WRKSRC}/llvm/utils/lit/lit/formats/*.py \
 	    ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}/formats/
+	${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}/llvm
+	${INSTALL_DATA} ${WRKSRC}/llvm/utils/lit/lit/llvm/*.py \
+	    ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}/${LIT_MOD_NAME}/llvm/
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/FileCheck \
 	    ${STAGEDIR}${LLVM_PREFIX}/bin/
 	${LN} -fs ../${LLVM_DIR}/bin/FileCheck \
@@ -509,6 +526,7 @@ build-plist:
 	    if ($$0 ~ /(argdumper|lldb|six.py)/) {printf "%%%%LLDB%%%%"} \
 	    if ($$0 ~ /(${MLIR_PATTERN})/) {printf "%%%%MLIR%%%%"} \
 	    if ($$0 ~ /(${OPENMP_PATTERN})/) {printf "%%%%OPENMP%%%%"} \
+	    if ($$0 ~ /(${POLLY_PATTERN})/) {printf "%%%%POLLY%%%%"} \
 	    if ($$0 !~ /(lib[a-z]*_rt|LLVMgold)/) {print} \
 	}' ${PLIST}.tmp >> ${PLIST}
 	${ECHO_CMD} '@postexec if type ccache-update-links >/dev/null 2>&1; then ccache-update-links -v; fi' >> ${PLIST}

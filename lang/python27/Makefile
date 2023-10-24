@@ -96,10 +96,6 @@ PLIST_SUB+=	32BIT_ONLY="@comment "
 PLIST_SUB+=	32BIT_ONLY=""
 .endif
 
-.if ${ARCH} == powerpc64
-MAKE_ENV+=	UNAME_m="powerpc64"
-.endif
-
 .if ${ARCH} == sparc64
 CFLAGS+=	-DPYTHON_DEFAULT_RECURSION_LIMIT=900
 .endif
@@ -128,7 +124,7 @@ post-patch:
 # openssl/opensslv.h so setup.py just detects the string as 00000000
 # However care should be taken for the OSVERSION. If OpenSSL 3.0.9
 # lands later the OSVERSION string should be fixed accordingly
-.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400089 && (${SSL_DEFAULT} == base || ${SSL_DEFAULT:Mopenssl3*} )
+.if ${OPSYS} == FreeBSD && ${OSVERSION} >= 1400092 && (${SSL_DEFAULT} == base || ${SSL_DEFAULT:Mopenssl3*} )
 	@${REINPLACE_CMD} -e 's|00907000|00000000|' \
 		${WRKSRC}/setup.py
 .endif

@@ -1,11 +1,11 @@
     COMMENT = Multimedia software
 
     SUBDIR += Bento4
-    SUBDIR += QtAV
     SUBDIR += ab-av1
     SUBDIR += ab25
     SUBDIR += acidrip
     SUBDIR += aegisub
+    SUBDIR += alass
     SUBDIR += aom
     SUBDIR += aravis
     SUBDIR += arcan
@@ -63,6 +63,7 @@
     SUBDIR += ffmpegthumbnailer
     SUBDIR += ffms2
     SUBDIR += ffnvcodec-headers
+    SUBDIR += ffsubsync
     SUBDIR += filebot
     SUBDIR += flvmeta
     SUBDIR += flvstreamer
@@ -197,6 +198,7 @@
     SUBDIR += libva-intel-driver
     SUBDIR += libva-intel-hybrid-driver
     SUBDIR += libva-intel-media-driver
+    SUBDIR += libva-nvidia-driver
     SUBDIR += libva-utils
     SUBDIR += libva-vdpau-driver
     SUBDIR += libvdpau
@@ -226,8 +228,6 @@
     SUBDIR += mkclean
     SUBDIR += mkvalidator
     SUBDIR += mkvtoolnix
-    SUBDIR += mlt6
-    SUBDIR += mlt6-qt5
     SUBDIR += mlt7
     SUBDIR += mlt7-glaxnimate
     SUBDIR += mlt7-qt
@@ -262,6 +262,7 @@
     SUBDIR += obs-studio
     SUBDIR += obs-text-pthread
     SUBDIR += obs-waveform
+    SUBDIR += obuparse
     SUBDIR += oggvideotools
     SUBDIR += ogmrip
     SUBDIR += ogmtools
@@ -312,7 +313,6 @@
     SUBDIR += py-mat2
     SUBDIR += py-metadata-cleaner
     SUBDIR += py-mido
-    SUBDIR += py-mlt6
     SUBDIR += py-moviepy
     SUBDIR += py-opentimelineio
     SUBDIR += py-periscope
@@ -320,7 +320,9 @@
     SUBDIR += py-pymediainfo
     SUBDIR += py-pysubs2
     SUBDIR += py-soco
+    SUBDIR += py-srt
     SUBDIR += py-subliminal
+    SUBDIR += py-tartube
     SUBDIR += py-tvnamer
     SUBDIR += qmmp-plugin-pack-qt5
     SUBDIR += qmmp-plugin-pack-qt6
@@ -357,7 +359,6 @@
     SUBDIR += snapcast
     SUBDIR += spook
     SUBDIR += streamlink
-    SUBDIR += subsync
     SUBDIR += subtitlecomposer
     SUBDIR += subtitleoffsetmodifier
     SUBDIR += subtools
@@ -386,29 +387,6 @@
     SUBDIR += vcdgear
     SUBDIR += vcdimager
     SUBDIR += vdpauinfo
-    SUBDIR += vdr
-    SUBDIR += vdr-plugin-control
-    SUBDIR += vdr-plugin-eepg
-    SUBDIR += vdr-plugin-epgsearch
-    SUBDIR += vdr-plugin-extrecmenu
-    SUBDIR += vdr-plugin-femon
-    SUBDIR += vdr-plugin-infosatepg
-    SUBDIR += vdr-plugin-iptv
-    SUBDIR += vdr-plugin-markad
-    SUBDIR += vdr-plugin-osdpip
-    SUBDIR += vdr-plugin-osdteletext
-    SUBDIR += vdr-plugin-reelchannelscan
-    SUBDIR += vdr-plugin-remote
-    SUBDIR += vdr-plugin-skinenigmang
-    SUBDIR += vdr-plugin-sleeptimer
-    SUBDIR += vdr-plugin-streamdev
-    SUBDIR += vdr-plugin-ttxtsubs
-    SUBDIR += vdr-plugin-vdrmanager
-    SUBDIR += vdr-plugin-vnsiserver
-    SUBDIR += vdr-plugin-wirbelscan
-    SUBDIR += vdr-plugin-xineliboutput
-    SUBDIR += vdr-plugin-xvdr
-    SUBDIR += vdr-plugins
     SUBDIR += vid.stab
     SUBDIR += video-trimmer
     SUBDIR += vlc
@@ -421,6 +399,7 @@
     SUBDIR += webcamoid
     SUBDIR += wf-recorder
     SUBDIR += winff
+    SUBDIR += wl-screenrec
     SUBDIR += wlrobs
     SUBDIR += x264
     SUBDIR += x265
